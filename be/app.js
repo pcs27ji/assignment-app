@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 
 
 require("dotenv").config();
+const mailerRoutes = require("./routes/mailerRoutes.js");
 
 const app = express();
 
@@ -118,6 +119,10 @@ app.post("/login", async (req, res) => {
 const auth = require("./middleware/auth");
 
 app.post("/welcome", auth, (req, res) => {
+  let mailObject ={}
+  mailerRoutes.sendEmail(mailObject, function (res) {
+    console.log(res);
+  });
   res.status(200).send("Welcome 🙌 ");
 });
 
